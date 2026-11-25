@@ -18,7 +18,7 @@ CASES = [
     ("alloc_rect", lambda: len(_a().alloc(256, 256)) == 4),
     ("two_no_overlap", lambda: (lambda a: (a.alloc(256, 256), a.alloc(256, 256), a.pages())[2] >= 1)(_a())),
     ("free_reuse", lambda: (lambda a: (r := a.alloc(256, 256), a.free(r), a.alloc(256, 256))[2] is not None)(_a())),
-    ("pages_monotonic", lambda: (lambda a: (a.alloc(256, 256), a.pages()))(_a()) >= 1),
+    ("pages_monotonic", lambda: (lambda a: (a.alloc(256, 256), a.pages())[1] >= 1)(_a())),
     ("bad_size", lambda: _raises(lambda: _a().alloc(0, 256))),
     ("too_big", lambda: _raises(lambda: _a().alloc(2048, 2048))),
     ("bad_free", lambda: _raises(lambda: _a().free(None))),

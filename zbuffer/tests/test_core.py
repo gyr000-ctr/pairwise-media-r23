@@ -16,9 +16,9 @@ def _z():
 
 CASES = [
     ("empty_depth", lambda: _z().depth(0, 0) == 1.0),
-    ("write", lambda: (_z().test(0, 0, 0.5, 1.0), _z().depth(0, 0))[1] == 0.5),
-    ("occlude", lambda: (_z().test(0, 0, 0.5, 1.0), _z().test(0, 0, 0.9, 2.0), _z().attr(0, 0))[2] == 1.0),
-    ("nearer_wins", lambda: (_z().test(0, 0, 0.9, 1.0), _z().test(0, 0, 0.2, 2.0), _z().attr(0, 0))[2] == 2.0),
+    ("write", lambda: (lambda z: (z.test(0, 0, 0.5, 1.0), z.depth(0, 0))[1] == 0.5)(_z())),
+    ("occlude", lambda: (lambda z: (z.test(0, 0, 0.5, 1.0), z.test(0, 0, 0.9, 2.0), z.attr(0, 0))[2] == 1.0)(_z())),
+    ("nearer_wins", lambda: (lambda z: (z.test(0, 0, 0.9, 1.0), z.test(0, 0, 0.2, 2.0), z.attr(0, 0))[2] == 2.0)(_z())),
     ("ndc", lambda: abs(_z().ndc(0.1) - 0.0) < 1e-9),
     ("ndc_far", lambda: abs(_z().ndc(100.0) - 1.0) < 1e-9),
     ("bad_near", lambda: _raises(lambda: zbuffer.ZBuffer(4, 4, 0.0, 100.0))),
